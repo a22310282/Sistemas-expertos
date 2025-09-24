@@ -1,41 +1,59 @@
-import numpy as np
-import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
 
-# Datos simulados (ejemplo)
-# x = tazas de café
-# y = horas de sueño
-x = np.array([0, 1, 2, 3, 4, 5])
-y = np.array([8, 7.5, 6.5, 6, 5.5, 5])
+# -----------------------------
+# Datos de ejemplo
+# -----------------------------
+data = {
+    "Componente": [
+        "Motor","Motor","Motor",
+        "Sensor","Sensor","Sensor",
+        "CPU","CPU","CPU"
+    ],
+    "Modo": [0,1,1, 0,1,1, 0,1,1],
+    "ConsumoWh": [0.2,1.5,1.7, 0.05,0.3,0.35, 0.1,0.8,1.0]
+}
 
-# Inicializamos parámetros
-m = 0.0  # pendiente
-b = 0.0  # intercepto
-alpha = 0.01  # tasa de aprendizaje
-epochs = 1000 # número de iteraciones
+df = pd.DataFrame(data)
 
-n = len(x)
+# Variables de entrada y salida
+X = df[["Componente", "Modo"]]
+y = df["ConsumoWh"]
 
-# Gradiente descendente
-for _ in range(epochs):
-    y_pred = m*x + b
-    error = y_pred - y
-    
-    # Actualización de parámetros
-    m -= alpha * (2/n) * np.dot(error, x)
-    b -= alpha * (2/n) * np.sum(error)
+# -----------------------------
+# Preprocesador
+# -----------------------------
+preprocessor = ColumnTransformer(
+    transformers=[
+        ("componente", OneHotEncoder(), ["Componente"])
+    ],
+    remainder="passthrough"
+)
 
-print(f"Modelo entrenado: y = {m:.2f}x + {b:.2f}")
+# -----------------------------
+# Pipeline
+# -----------------------------
+pipeline = Pipeline(steps=[
+    ("preprocessor", preprocessor),
+    ("regressor", LinearRegression())
+])
 
-# Predicción
-x_test = np.linspace(0,5,50)
-y_test = m*x_test + b
+# Entrenar
+pipeline.fit(X, y)
 
-# Visualización
-plt.scatter(x, y, color='blue', label="Datos reales")
-plt.plot(x_test, y_test, color='red', label="Regresión lineal")
-plt.xlabel("Tazas de café por día")
-plt.ylabel("Horas de sueño")
-plt.title("Relación café vs. sueño")
-plt.legend()
-plt.grid(True)
-plt.show()
+# -----------------------------
+# Predicciones nuevas
+# -----------------------------
+nuevos_datos = pd.DataFrame({
+    "Componente": ["Motor","Sensor","CPU"],
+    "Modo": [1,0,1]
+})
+
+predicciones = pipeline.predict(nuevos_datos)
+
+print("Predicciones de consumo energético (Wh):")
+for dato, consumo in zip(nuevos_datos.to_dict(orient="records"), predicciones):
+    print(f"{dato} → {consumo:.2f} Wh")
