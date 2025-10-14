@@ -1,0 +1,124 @@
+[
+  {
+    "initial_ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "questions": [
+      "especie"
+    ],
+    "hechos": {
+      "especie": "pájaro"
+    },
+    "guessed": 1,
+    "result": true,
+    "num_questions": 1
+  },
+  {
+    "initial_ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "questions": [
+      "especie",
+      "color"
+    ],
+    "hechos": {
+      "especie": "humano",
+      "color": "piel"
+    },
+    "guessed": 10,
+    "result": false,
+    "num_questions": 2
+  },
+  {
+    "initial_ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "questions": [
+      "especie",
+      "color"
+    ],
+    "hechos": {
+      "especie": "no humano",
+      "color": "blanco"
+    },
+    "guessed": 9,
+    "result": true,
+    "num_questions": 2
+  },
+  {
+    "initial_ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "questions": [
+      "especie"
+    ],
+    "hechos": {
+      "especie": "gato"
+    },
+    "guessed": 6,
+    "result": true,
+    "num_questions": 1
+  },
+  {
+    "initial_ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "questions": [
+      "especie"
+    ],
+    "hechos": {
+      "especie": "humano"
+    },
+    "guessed": 11,
+    "result": false,
+    "num_questions": 1
+  }
+]

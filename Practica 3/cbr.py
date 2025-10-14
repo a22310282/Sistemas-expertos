@@ -1,44 +1,19 @@
-import csv
-from typing import List, Dict, Any
+import json
+from typing import Dict, Any, List
 
-class CaseRepository:
-    def __init__(self, filename: str = 'cases.csv'):
+class CaseRepositoryJSON:
+    def __init__(self, filename: str):
         self.filename = filename
+        try:
+            with open(self.filename, 'r', encoding='utf-8') as f:
+                self.cases = json.load(f)
+        except FileNotFoundError:
+            self.cases = []
 
     def save_case(self, case: Dict[str, Any]):
-        header = ['initial_ids','questions','target','result','num_questions']
-        try:
-            with open(self.filename, 'x', newline='') as f:
-                writer = csv.writer(f)
-                writer.writerow(header)
-        except FileExistsError:
-            pass
-        with open(self.filename, 'a', newline='') as f:
-            writer = csv.writer(f)
-            writer.writerow([
-                '|'.join(map(str, case.get('initial_ids',[]))),
-                '|'.join([f"{a}={v}" for a,v in case.get('questions',[])]),
-                case.get('target',''),
-                int(case.get('result', False)),
-                case.get('num_questions', 0)
-            ])
+        self.cases.append(case)
+        with open(self.filename, 'w', encoding='utf-8') as f:
+            json.dump(self.cases, f, ensure_ascii=False, indent=2)
 
-    def load_cases(self) -> List[Dict[str, Any]]:
-        casos = []
-        try:
-            with open(self.filename, 'r', newline='') as f:
-                reader = csv.DictReader(f)
-                for row in reader:
-                    casos.append(row)
-        except FileNotFoundError:
-            pass
-        return casos
-
-    def retrieve_similar(self, initial_ids: List[int]) -> List[Dict[str, Any]]:
-        similar = []
-        for c in self.load_cases():
-            ids = [int(x) for x in c['initial_ids'].split('|')] if c.get('initial_ids') else []
-            overlap = len(set(ids).intersection(set(initial_ids)))
-            similar.append((overlap, c))
-        similar.sort(key=lambda x: -x[0])
-        return [c for _,c in similar]
+    def retrieve_all(self) -> List[Dict[str, Any]]:
+        return self.cases
