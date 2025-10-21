@@ -166,5 +166,19 @@
     "inteligencia": "baja",
     "protagonista": true,
     "id": 12
+  },
+  {
+    "nombre": "Margarita",
+    "especie": "pájaro",
+    "color": "rojo",
+    "usa_ropa": true,
+    "tiene_poderes": false,
+    "personalidad": "seria",
+    "serie": "un show más",
+    "voz_tipo": "gruesa",
+    "tamano": "mediano",
+    "inteligencia": "alta",
+    "protagonista": false,
+    "id": 13
   }
 ]

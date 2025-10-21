@@ -120,5 +120,90 @@
     "guessed": 11,
     "result": false,
     "num_questions": 1
+  },
+  {
+    "initial_ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "questions": [
+      "especie"
+    ],
+    "hechos": {
+      "especie": "pájaro"
+    },
+    "guessed": 1,
+    "result": false,
+    "num_questions": 1
+  },
+  {
+    "initial_ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "questions": [
+      "color"
+    ],
+    "hechos": {
+      "color": "rojo"
+    },
+    "guessed": 13,
+    "result": true,
+    "num_questions": 1
+  },
+  {
+    "initial_ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "questions": [
+      "color",
+      "especie",
+      "personalidad",
+      "serie",
+      "voz_tipo"
+    ],
+    "hechos": {
+      "color": null,
+      "especie": "humano",
+      "personalidad": "travieso",
+      "serie": "steven universe",
+      "voz_tipo": "aguda"
+    },
+    "guessed": 11,
+    "result": false,
+    "num_questions": 5
   }
 ]
