@@ -51,7 +51,7 @@ class App:
 
         # Main
         self.main = tk.Frame(root, bg=CN_WHITE)
-        self.header = tk.Label(self.main, text='Piensa en un personaje y responde Sí/No', fg=CN_BLACK, bg=CN_WHITE, font=('Arial', 14))
+        self.header = tk.Label(self.main, text='Piensa en un personaje \n Responde Sí/No', fg=CN_BLACK, bg=CN_WHITE, font=('Arial', 14))
         self.header.pack(pady=10)
         btns = tk.Frame(self.main, bg=CN_WHITE); btns.pack(pady=5)
         self.btn_yes = tk.Button(btns, text='Sí', width=10, command=lambda: self.answer(True), bg=CN_BLUE, fg=CN_WHITE)

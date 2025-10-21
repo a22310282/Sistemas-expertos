@@ -1,1 +1,130 @@
-[]
+[
+  {
+    "questions": [
+      "aparece_en_grupo",
+      "usa_ropa",
+      "tiene_cabello",
+      "es_humanoide",
+      "es_niño",
+      "es_comico",
+      "es_valiente",
+      "tiene_poderes",
+      "es_robot",
+      "es_extraterrestre",
+      "es_villano",
+      "es_protagonista"
+    ],
+    "facts": {
+      "aparece_en_grupo": true,
+      "usa_ropa": true,
+      "tiene_cabello": null,
+      "es_humanoide": null,
+      "es_niño": null,
+      "es_comico": null,
+      "es_valiente": null,
+      "tiene_poderes": null,
+      "es_robot": null,
+      "es_extraterrestre": null,
+      "es_villano": null,
+      "es_protagonista": null
+    },
+    "guessed": 1,
+    "result": false,
+    "num_questions": 12,
+    "guess_attempts": 1
+  },
+  {
+    "questions": [
+      "aparece_en_grupo",
+      "usa_ropa",
+      "tiene_cabello",
+      "es_humanoide",
+      "es_niño",
+      "es_comico",
+      "es_valiente",
+      "tiene_poderes",
+      "es_robot",
+      "es_extraterrestre",
+      "es_villano",
+      "es_protagonista"
+    ],
+    "facts": {
+      "aparece_en_grupo": true,
+      "usa_ropa": true,
+      "tiene_cabello": null,
+      "es_humanoide": null,
+      "es_niño": null,
+      "es_comico": null,
+      "es_valiente": null,
+      "tiene_poderes": null,
+      "es_robot": null,
+      "es_extraterrestre": null,
+      "es_villano": null,
+      "es_protagonista": null
+    },
+    "guessed": 2,
+    "result": false,
+    "num_questions": 12,
+    "guess_attempts": 2
+  },
+  {
+    "questions": [
+      "aparece_en_grupo",
+      "usa_ropa",
+      "tiene_cabello",
+      "es_humanoide",
+      "es_niño",
+      "es_comico",
+      "es_valiente",
+      "tiene_poderes",
+      "es_robot",
+      "es_extraterrestre",
+      "es_villano",
+      "es_protagonista"
+    ],
+    "facts": {
+      "aparece_en_grupo": true,
+      "usa_ropa": true,
+      "tiene_cabello": null,
+      "es_humanoide": null,
+      "es_niño": null,
+      "es_comico": null,
+      "es_valiente": null,
+      "tiene_poderes": null,
+      "es_robot": null,
+      "es_extraterrestre": null,
+      "es_villano": null,
+      "es_protagonista": null
+    },
+    "guessed": 9,
+    "result": false,
+    "num_questions": 12,
+    "guess_attempts": 3
+  },
+  {
+    "questions": [
+      "aparece_en_grupo",
+      "usa_ropa",
+      "tiene_cabello",
+      "es_humanoide",
+      "es_niño",
+      "es_comico",
+      "es_valiente",
+      "tiene_poderes"
+    ],
+    "facts": {
+      "aparece_en_grupo": true,
+      "usa_ropa": true,
+      "tiene_cabello": true,
+      "es_humanoide": true,
+      "es_niño": true,
+      "es_comico": false,
+      "es_valiente": false,
+      "tiene_poderes": false
+    },
+    "guessed": 23,
+    "result": false,
+    "num_questions": 8,
+    "guess_attempts": 1
+  }
+]
