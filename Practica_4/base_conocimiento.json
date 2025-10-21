@@ -1,0 +1,45 @@
+{
+  "personajes": [
+    {
+      "nombre": "Dr. Loco",
+      "profesion": "Científico"
+    },
+    {
+      "nombre": "Sra. Veneno",
+      "profesion": "Química"
+    },
+    {
+      "nombre": "Coronel Mostaza",
+      "profesion": "Militar retirado"
+    },
+    {
+      "nombre": "Sr. Sombra",
+      "profesion": "Espía encubierto"
+    },
+    {
+      "nombre": "Chef Cuchillo",
+      "profesion": "Cocinero"
+    }
+  ],
+  "lugares": [
+    "Biblioteca",
+    "Cocina",
+    "Hotel",
+    "Laboratorio",
+    "Jardín"
+  ],
+  "armas": [
+    "Candelabro",
+    "Cuchillo",
+    "Pistola",
+    "Veneno",
+    "Llave inglesa"
+  ],
+  "historias": [
+    "El Dr. Loco perdió el control de su experimento y atacó a su ayudante con el candelabro en el laboratorio.",
+    "La Sra. Veneno envenenó el té del Coronel Mostaza en la cocina.",
+    "El Coronel Mostaza descargó su pistola en el hotel, intentando silenciar a un testigo incómodo.",
+    "El Sr. Sombra fue descubierto robando planos secretos y lo golpearon con una llave inglesa en la biblioteca.",
+    "El Chef Cuchillo no soportó las críticas y acabó con su rival en el jardín con su inseparable cuchillo."
+  ]
+}
