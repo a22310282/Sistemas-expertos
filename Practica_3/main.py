@@ -3,84 +3,95 @@ from tkinter import messagebox, simpledialog
 import os, random
 from engine import ExpertEngine, ATTR_ORDER
 from cbr import CaseRepositoryJSON
-from utils import BASE_FILE, ICONS_DIR
-from PIL import Image, ImageTk, ImageDraw, ImageFont
+from utils import BASE_FILE
 
 ATRIBUTOS = ATTR_ORDER[:]
 
-CN_BLUE = '#009BFF'
-CN_BLACK = '#000000'
-CN_WHITE = '#FFFFFF'
-
-def generate_icon(path, name, color=(180,180,255)):
-    img = Image.new('RGBA', (180,180), color+(255,))
-    draw = ImageDraw.Draw(img)
-    try:
-        font = ImageFont.truetype('DejaVuSans-Bold.ttf', 20)
-    except Exception:
-        font = ImageFont.load_default()
-    words = name.split()
-    lines, line = [], ''
-    for w in words:
-        if len((line+' '+w).strip()) <= 12: line = (line+' '+w).strip()
-        else: lines.append(line); line = w
-    if line: lines.append(line)
-    y = 80 - (len(lines)*12)
-    for ln in lines[:3]:
-        w,h = draw.textsize(ln, font=font)
-        draw.text(((180-w)/2, y), ln, fill=(0,0,0), font=font)
-        y += h+4
-    img.save(path)
+BG_SOFT = '#F8FAFC'
+TXT_MAIN = '#1E1E1E'
+BLUE = '#4DB5FF'
+BLUE_ACTIVE = '#66C4FF'
+GRAY_BTN = '#D9D9D9'
+TXT_DIM = '#444444'
 
 class App:
     def __init__(self, root):
         self.root = root
         self.root.title('ADIVINA QUIÉN — CARTOON NETWORK (2000–2015)')
-        self.root.configure(bg=CN_WHITE)
+        self.root.configure(bg=BG_SOFT)
         self.engine = ExpertEngine(BASE_FILE)
         self.repo = CaseRepositoryJSON(os.path.join(os.path.dirname(__file__), 'casos.json'))
         self.max_preguntas_totales = 20
 
         # Splash
-        self.splash = tk.Frame(root, bg=CN_WHITE)
+        self.splash = tk.Frame(root, bg=BG_SOFT)
         self.splash.pack(fill='both', expand=True)
-        title = tk.Label(self.splash, text='ADIVINA QUIÉN', fg=CN_BLACK, bg=CN_WHITE, font=('Arial Black', 28))
-        subtitle = tk.Label(self.splash, text='CARTOON NETWORK (2000–2015)', fg=CN_BLUE, bg=CN_WHITE, font=('Arial', 16, 'bold'))
-        start_btn = tk.Button(self.splash, text='Comenzar partida', bg=CN_BLUE, fg=CN_WHITE, font=('Arial', 14, 'bold'), command=self.start_ui, activebackground='#0DB3FF', activeforeground=CN_WHITE, padx=20, pady=10, relief='flat')
+        title = tk.Label(self.splash, text='ADIVINA QUIÉN', fg=TXT_MAIN, bg=BG_SOFT, font=('Arial Black', 28))
+        subtitle = tk.Label(self.splash, text='CARTOON NETWORK (2000–2015)', fg=BLUE, bg=BG_SOFT, font=('Arial', 16, 'bold'))
+        start_btn = tk.Button(self.splash, text='Comenzar partida', bg=BLUE, fg='white', font=('Arial', 14, 'bold'),
+                              command=self.to_instructions, activebackground=BLUE_ACTIVE, activeforeground='white',
+                              padx=20, pady=10, relief='flat')
         title.pack(pady=(40,10)); subtitle.pack(pady=(0,30)); start_btn.pack()
 
-        # Main
-        self.main = tk.Frame(root, bg=CN_WHITE)
-        self.header = tk.Label(self.main, text='Piensa en un personaje \n Responde Sí/No', fg=CN_BLACK, bg=CN_WHITE, font=('Arial', 14))
+        # Instructions
+        self.instructions = tk.Frame(root, bg=BG_SOFT)
+        # Draw simple CN logo with Canvas: [C][N] squares
+        logo = tk.Canvas(self.instructions, width=180, height=90, bg=BG_SOFT, highlightthickness=0)
+        logo.pack(pady=(40,10))
+        logo.create_rectangle(0,0,90,90, fill='#000000', outline='#000000')
+        logo.create_rectangle(90,0,180,90, fill='#FFFFFF', outline='#000000')
+        logo.create_text(45,45, text='C', fill='#FFFFFF', font=('Arial Black', 36))
+        logo.create_text(135,45, text='N', fill='#000000', font=('Arial Black', 36))
+        msg = ('Piensa en un personaje de Cartoon Network (2000–2015).\n'
+               'Responde las siguientes preguntas con Sí o No,\n'
+               'y el simulador intentará adivinarlo.')
+        text_lbl = tk.Label(self.instructions, text=msg, fg=TXT_MAIN, bg=BG_SOFT, font=('Arial', 14), justify='center')
+        btns = tk.Frame(self.instructions, bg=BG_SOFT)
+        btn_start = tk.Button(btns, text='Empezar preguntas', bg=BLUE, fg='white', font=('Arial', 12, 'bold'),
+                              command=self.start_game, activebackground=BLUE_ACTIVE, activeforeground='white', padx=18, pady=8, relief='flat')
+        btn_back_home = tk.Button(btns, text='Volver al inicio', bg=GRAY_BTN, fg=TXT_MAIN, font=('Arial', 12),
+                                  command=self.to_splash, padx=18, pady=8, relief='flat')
+        text_lbl.pack(pady=(0,10))
+        btns.pack(pady=10)
+        btn_start.pack(side='left', padx=6)
+        btn_back_home.pack(side='left', padx=6)
+
+        # Game
+        self.main = tk.Frame(root, bg=BG_SOFT)
+        self.header = tk.Label(self.main, text='Responde Sí / No / No sé', fg=TXT_MAIN, bg=BG_SOFT, font=('Arial', 14))
         self.header.pack(pady=10)
-        btns = tk.Frame(self.main, bg=CN_WHITE); btns.pack(pady=5)
-        self.btn_yes = tk.Button(btns, text='Sí', width=10, command=lambda: self.answer(True), bg=CN_BLUE, fg=CN_WHITE)
-        self.btn_no = tk.Button(btns, text='No', width=10, command=lambda: self.answer(False), bg=CN_BLACK, fg=CN_WHITE)
-        self.btn_unknown = tk.Button(btns, text='No sé', width=10, command=lambda: self.answer(None), bg='#666666', fg=CN_WHITE)
-        self.btn_back = tk.Button(btns, text='↩ Regresar', width=12, command=self.go_back, bg='#CCCCCC', fg=CN_BLACK)
+        btns2 = tk.Frame(self.main, bg=BG_SOFT); btns2.pack(pady=5)
+        self.btn_yes = tk.Button(btns2, text='Sí', width=12, command=lambda: self.answer(True), bg=BLUE, fg='white', relief='flat')
+        self.btn_no = tk.Button(btns2, text='No', width=12, command=lambda: self.answer(False), bg=TXT_MAIN, fg='white', relief='flat')
+        self.btn_unknown = tk.Button(btns2, text='No sé', width=12, command=lambda: self.answer(None), bg='#666666', fg='white', relief='flat')
+        self.btn_back = tk.Button(btns2, text='↩ Regresar', width=12, command=self.go_back, bg=GRAY_BTN, fg=TXT_MAIN, relief='flat')
         self.btn_yes.pack(side='left', padx=6); self.btn_no.pack(side='left', padx=6); self.btn_unknown.pack(side='left', padx=6); self.btn_back.pack(side='left', padx=6)
 
-        self.canvas = tk.Canvas(self.main, width=720, height=280, bg=CN_WHITE, highlightthickness=0)
-        self.canvas.pack(pady=10)
-        self.icon_images = {}
-
-        self.question_label = tk.Label(self.main, text='', fg=CN_BLACK, bg=CN_WHITE, font=('Arial', 13, 'bold'))
-        self.question_label.pack(pady=(0,8))
-        self.counter_label = tk.Label(self.main, text='0 / 20 preguntas — Intentos: 0/3', fg='#333333', bg=CN_WHITE, font=('Arial', 10))
+        self.question_label = tk.Label(self.main, text='', fg=TXT_MAIN, bg=BG_SOFT, font=('Arial', 13, 'bold'))
+        self.question_label.pack(pady=(10,8))
+        self.counter_label = tk.Label(self.main, text='0 / 20 preguntas — Intentos: 0/3', fg=TXT_DIM, bg=BG_SOFT, font=('Arial', 10))
         self.counter_label.pack()
 
         self.current_attr = None
 
-    def start_ui(self):
+    # Navigation
+    def to_instructions(self):
         self.splash.pack_forget()
+        self.instructions.pack(fill='both', expand=True)
+
+    def to_splash(self):
+        self.instructions.pack_forget()
+        self.splash.pack(fill='both', expand=True)
+
+    def start_game(self):
+        self.instructions.pack_forget()
         self.main.pack(fill='both', expand=True)
         self.reset_game()
         self.next_question()
 
+    # Game logic
     def reset_game(self):
         self.engine.reset()
-        self.canvas.delete('all')
-        self.icon_images = {}
         self.current_attr = None
         self.update_counter()
 
@@ -121,26 +132,9 @@ class App:
     def go_back(self):
         if self.engine.undo():
             self.update_counter()
-            self.update_candidate_icons()
             self.next_question(set_new=False)
         else:
             messagebox.showinfo('Regresar', 'No hay pasos anteriores que deshacer.')
-
-    def update_candidate_icons(self):
-        self.canvas.delete('all')
-        x,y = 10,10; per_row = 8; idx = 0
-        for pid in self.engine.candidatos:
-            p = next(x for x in self.engine.personajes if x['id']==pid)
-            name_key = p['nombre'].replace(' ','_')
-            path = os.path.join(ICONS_DIR, f'{name_key}.png')
-            if os.path.exists(path):
-                img = Image.open(path).resize((80,80))
-                tkimg = ImageTk.PhotoImage(img); self.icon_images[f'{pid}'] = tkimg
-                self.canvas.create_image(x+40,y+40,image=tkimg)
-            self.canvas.create_text(x+40,y+95,text=p['nombre'])
-            x += 90; idx += 1
-            if idx % per_row == 0:
-                x = 10; y += 120
 
     def next_question(self, set_new=True):
         if self.engine.preguntas_hechas >= self.max_preguntas_totales or len(self.engine.candidatos) <= 1:
@@ -151,7 +145,6 @@ class App:
             self.try_guess_or_finish(); return
         q = self.make_question_text(attr)
         self.question_label.config(text=q)
-        self.update_candidate_icons()
 
     def try_guess_or_finish(self):
         if self.engine.intentos_adivinar >= 3:
@@ -205,10 +198,6 @@ class App:
             v = self.engine.hechos.get(a, None)
             nuevo[a] = bool(v) if v is not None else False
         added = self.engine.add_new_character(nuevo)
-        path = os.path.join(ICONS_DIR, f"{added['nombre'].replace(' ','_')}.png")
-        h = abs(hash(added['nombre']))
-        color = (100 + (h % 156), 100 + ((h//7) % 156), 100 + ((h//13) % 156))
-        generate_icon(path, added['nombre'], color=color)
         messagebox.showinfo('Aprendido', f"He aprendido un nuevo personaje: {added['nombre']}. ¡Gracias!")
 
 if __name__ == '__main__':

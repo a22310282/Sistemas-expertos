@@ -430,21 +430,5 @@
     "aparece_en_grupo": true,
     "es_comico": true,
     "es_valiente": true
-  },
-  {
-    "nombre": "Zim",
-    "aparece_en_grupo": true,
-    "usa_ropa": true,
-    "tiene_cabello": true,
-    "es_humanoide": true,
-    "es_niño": true,
-    "es_comico": false,
-    "es_valiente": false,
-    "tiene_poderes": false,
-    "es_robot": false,
-    "es_extraterrestre": false,
-    "es_villano": false,
-    "es_protagonista": false,
-    "id": 28
   }
 ]
