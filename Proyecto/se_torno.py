@@ -394,7 +394,7 @@ def ask_user_inputs():
     )
 
     acabado = ask_choice(
-        "\nAcabado superficial requerido:",
+        "\nNivel del acabado superficial requerido:",
         ["bajo", "medio", "alto"],
     )
 
