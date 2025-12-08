@@ -2,6 +2,10 @@ import sqlite3
 import csv
 from pathlib import Path
 
+# ---imports para GUI ---
+import tkinter as tk
+from tkinter import ttk, messagebox
+
 DB_PATH = "Proyecto/se_torno.db"
 CSV_PATH = "Proyecto/insertos_se_torno.csv"
 
@@ -372,7 +376,7 @@ def ask_choice(prompt, options):
 
 
 def ask_user_inputs():
-    """Recolecta los datos necesarios para el sistema experto."""
+    """Recolecta los datos necesarios para el sistema experto (modo consola)."""
     print("=" * 60)
     print("SE-Torno - Asistente de selección de herramientas")
     print("=" * 60)
@@ -387,7 +391,7 @@ def ask_user_inputs():
         ["Desbaste", "Acabado", "Ranurado", "Tronzado"],
     )
 
-    # AHORA: profundidad se pregunta para TODAS las operaciones
+    # Profundidad de corte aproximada: ahora para todas las operaciones
     profundidad = ask_choice(
         "\nProfundidad de corte aproximada:",
         ["baja", "media", "alta"],
@@ -503,7 +507,7 @@ def obtener_recomendaciones(hechos):
         params.extend([profundidad, acabado])
 
     elif operacion == "Tronzado":
-        # AHORA también se usa profundidad + acabado
+        # También se usa profundidad + acabado
         where_extra = "AND p.profundidad = ? AND p.acabado = ?"
         params.extend([profundidad, acabado])
 
@@ -573,7 +577,7 @@ def clasificar_recomendaciones(candidatas, presupuesto):
 
 
 # =========================
-# 6. Presentación de resultados
+# 6. Presentación de resultados (consola)
 # =========================
 
 def mostrar_resultados(hechos, clasificacion):
@@ -621,16 +625,216 @@ def mostrar_resultados(hechos, clasificacion):
 
 
 # =========================
-# 7. main
+# 7. Interfaz gráfica (tkinter)
+# =========================
+
+def lanzar_gui():
+    """Interfaz gráfica para el sistema experto SE-Torno."""
+
+    def ejecutar_sistema():
+        try:
+            material = material_var.get()
+            operacion = operacion_var.get()
+            profundidad = profundidad_var.get()
+            acabado = acabado_var.get()
+            presupuesto = float(presupuesto_var.get())
+
+            # Forma del inserto y profundidad de ranura según operación
+            forma_inserto = None
+            prof_ranura_total = None
+
+            if operacion in ["Ranurado", "Tronzado"]:
+                # Para ranurado / tronzado usamos forma C fija
+                forma_inserto = "C"
+
+                if operacion == "Ranurado":
+                    # Profundidad total de ranura
+                    val_ran = ranura_var.get().strip()
+                    if val_ran:
+                        prof_ranura_total = float(val_ran)
+
+            else:
+                # Desbaste / Acabado: considerar geometría
+                geometria = geometria_var.get()
+                if geometria.startswith("Geometría simple"):
+                    forma_inserto = "C"
+                else:
+                    # Compleja -> forma rombica seleccionada
+                    pref = forma_rom_var.get()
+                    if pref.startswith("D"):
+                        forma_inserto = "D"
+                    elif pref.startswith("V"):
+                        forma_inserto = "V"
+                    else:
+                        forma_inserto = "D"  # fallback
+
+            hechos = {
+                "material": material,
+                "operacion": operacion,
+                "profundidad": profundidad,
+                "acabado": acabado,
+                "forma_inserto": forma_inserto,
+                "presupuesto": presupuesto,
+                "prof_ranura_total": prof_ranura_total,
+            }
+
+            candidatas = obtener_recomendaciones(hechos)
+            clasificacion = clasificar_recomendaciones(candidatas, hechos["presupuesto"])
+
+            if not clasificacion:
+                resultado_txt.set(
+                    "No se encontraron herramientas dentro de tu presupuesto "
+                    "para los parámetros seleccionados."
+                )
+                return
+
+            ideal = clasificacion["ideal"]
+            econ = clasificacion["economica"]
+
+            texto = (
+                "HERRAMIENTA IDEAL\n"
+                f"- Código: {ideal['codigo_iso']}\n"
+                f"- Forma / ángulo: {ideal['forma']} ({ideal['angulo']}°)\n"
+                f"- Marca: {ideal['marca']} ({ideal['segmento']})\n"
+                f"- Precio aprox.: ${ideal['precio_aprox']:.2f} MXN\n"
+                f"- Aplicación: {ideal['aplicacion_principal']}\n"
+                f"- Nota: {ideal['nota_aplicacion']}\n\n"
+                "HERRAMIENTA ECONÓMICA\n"
+                f"- Código: {econ['codigo_iso']}\n"
+                f"- Forma / ángulo: {econ['forma']} ({econ['angulo']}°)\n"
+                f"- Marca: {econ['marca']} ({econ['segmento']})\n"
+                f"- Precio aprox.: ${econ['precio_aprox']:.2f} MXN\n"
+                f"- Aplicación: {econ['aplicacion_principal']}\n"
+                f"- Nota: {econ['nota_aplicacion']}\n\n"
+                "EXPLICACIÓN DEL SISTEMA EXPERTO:\n"
+                f"Material: {hechos['material']}\n"
+                f"Operación: {hechos['operacion']}\n"
+                f"Profundidad de corte: {hechos['profundidad']}\n"
+                f"Acabado requerido: {hechos['acabado']}\n"
+                f"Forma seleccionada: {hechos['forma_inserto']}\n"
+                f"Presupuesto máximo: ${hechos['presupuesto']:.2f} MXN\n"
+            )
+
+            if operacion == "Ranurado" and prof_ranura_total is not None:
+                texto += f"Profundidad total de ranura: {prof_ranura_total} mm\n"
+
+            resultado_txt.set(texto)
+
+        except ValueError:
+            messagebox.showerror("Error", "Por favor, revisa que el presupuesto y profundidades sean numéricos.")
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
+
+    # --- Ventana principal ---
+    window = tk.Tk()
+    window.title("SE-Torno – Sistema Experto de Selección de Insertos")
+    window.geometry("700x700")
+
+    # Variables de control
+    material_var = tk.StringVar(value="Acero al carbono")
+    operacion_var = tk.StringVar(value="Desbaste")
+    profundidad_var = tk.StringVar(value="media")
+    acabado_var = tk.StringVar(value="medio")
+    geometria_var = tk.StringVar(value="Geometría simple (cilindros, conos suaves, hombros sencillos)")
+    forma_rom_var = tk.StringVar(value="D (55°)")
+    ranura_var = tk.StringVar(value="10")
+    presupuesto_var = tk.StringVar(value="1000")
+    resultado_txt = tk.StringVar(value="Aquí aparecerán las recomendaciones del sistema experto.")
+
+    # Layout simple con frames
+    frm = ttk.Frame(window, padding=10)
+    frm.pack(fill="both", expand=True)
+
+    ttk.Label(frm, text="SE-Torno", font=("Arial", 18, "bold")).pack(pady=5)
+    ttk.Label(frm, text="Sistema experto para selección de insertos de torneado CNC").pack(pady=5)
+
+    # Material
+    ttk.Label(frm, text="Material de la pieza:").pack(anchor="w", pady=(10, 0))
+    ttk.Combobox(
+        frm, textvariable=material_var,
+        values=["Acero al carbono", "Acero inoxidable", "Aluminio"],
+        state="readonly"
+    ).pack(fill="x")
+
+    # Operación
+    ttk.Label(frm, text="Tipo de operación:").pack(anchor="w", pady=(10, 0))
+    ttk.Combobox(
+        frm, textvariable=operacion_var,
+        values=["Desbaste", "Acabado", "Ranurado", "Tronzado"],
+        state="readonly"
+    ).pack(fill="x")
+
+    # Profundidad de corte
+    ttk.Label(frm, text="Profundidad de corte aproximada:").pack(anchor="w", pady=(10, 0))
+    ttk.Combobox(
+        frm, textvariable=profundidad_var,
+        values=["baja", "media", "alta"],
+        state="readonly"
+    ).pack(fill="x")
+
+    # Acabado
+    ttk.Label(frm, text="Acabado superficial requerido:").pack(anchor="w", pady=(10, 0))
+    ttk.Combobox(
+        frm, textvariable=acabado_var,
+        values=["bajo", "medio", "alto"],
+        state="readonly"
+    ).pack(fill="x")
+
+    # Geometría de la pieza (para desbaste / acabado)
+    ttk.Label(frm, text="Complejidad geométrica (solo desbaste / acabado):").pack(anchor="w", pady=(10, 0))
+    ttk.Combobox(
+        frm, textvariable=geometria_var,
+        values=[
+            "Geometría simple (cilindros, conos suaves, hombros sencillos)",
+            "Geometría compleja (radios pequeños, cambios bruscos, zonas estrechas)",
+        ],
+        state="readonly"
+    ).pack(fill="x")
+
+    # Forma rómbica preferida
+    ttk.Label(frm, text="Forma de inserto rómbico preferida (para geometría compleja):").pack(anchor="w", pady=(10, 0))
+    ttk.Combobox(
+        frm, textvariable=forma_rom_var,
+        values=["D (55°)", "V (35°)"],
+        state="readonly"
+    ).pack(fill="x")
+
+    # Profundidad de ranura (solo ranurado)
+    ttk.Label(frm, text="Profundidad total de ranura (mm, solo Ranurado):").pack(anchor="w", pady=(10, 0))
+    ttk.Combobox(
+        frm, textvariable=ranura_var,
+        values=["10", "12", "18"],
+        state="readonly"
+    ).pack(fill="x")
+
+    # Presupuesto
+    ttk.Label(frm, text="Presupuesto máximo (MXN):").pack(anchor="w", pady=(10, 0))
+    ttk.Entry(frm, textvariable=presupuesto_var).pack(fill="x")
+
+    # Botón de ejecución
+    ttk.Button(frm, text="Obtener recomendación", command=ejecutar_sistema).pack(pady=15)
+
+    # Resultado
+    ttk.Label(frm, text="Resultados del sistema experto:").pack(anchor="w")
+    ttk.Label(frm, textvariable=resultado_txt, wraplength=650, justify="left").pack(fill="x", pady=10)
+
+    window.mainloop()
+
+
+# =========================
+# 8. main
 # =========================
 
 def main():
     init_db_schema()
     importar_csv()          # idempotente: puedes correrlo las veces que quieras
-    hechos = ask_user_inputs()
-    candidatas = obtener_recomendaciones(hechos)
-    clasificacion = clasificar_recomendaciones(candidatas, hechos["presupuesto"])
-    mostrar_resultados(hechos, clasificacion)
+    # MODO GUI:
+    lanzar_gui()
+    # Si quisieras usar consola en algún momento:
+    # hechos = ask_user_inputs()
+    # candidatas = obtener_recomendaciones(hechos)
+    # clasificacion = clasificar_recomendaciones(candidatas, hechos["presupuesto"])
+    # mostrar_resultados(hechos, clasificacion)
 
 
 if __name__ == "__main__":
