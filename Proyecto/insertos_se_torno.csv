@@ -1,32 +1,32 @@
 marca,segmento,codigo_iso,forma,angulo,aplicacion_principal,material_grupo,recubrimiento,profundidad,acabado,vc_min,vc_max,ap_min,ap_max,f_min,f_max,precio_aprox,observaciones,profundidad_max_ranura
-Sumitomo,Premium,CNMG 120408,C,80,Desbaste,P,CVD,Alta,Medio,180,250,2.0,5.0,0.20,0.40,950,Inserto negativo robusto para desbaste general en acero al carbono,
-Sumitomo,Premium,CNMG 120404,C,80,Desbaste,P,CVD,Media,Medio,190,260,1.5,3.0,0.18,0.35,900,Inserto para desbaste medio con menor esfuerzo de corte,
-Sumitomo,Premium,CCMT 060204,C,80,Acabado,P,PVD,Baja,Alto,200,280,0.1,1.0,0.05,0.20,780,Inserto positivo para acabado fino en acero,
-Sumitomo,Premium,DNMG 150608,D,55,Desbaste,P,CVD,Alta,Bajo,170,230,2.5,5.0,0.22,0.45,980,Inserto para geometrías con mejor acceso que CNMG,
-Sumitomo,Premium,DNMG 150404,D,55,Acabado,P,PVD,Media,Alto,190,260,0.5,2.0,0.10,0.25,900,Inserto D para acabado en zonas de acceso limitado,
-Mitsubishi,Premium,CNMG 120408,C,80,Desbaste,P,CVD,Alta,Medio,180,250,2.0,5.0,0.20,0.40,930,Inserto MC para desbaste estable en acero,
-Mitsubishi,Premium,CNMG 120404,C,80,Desbaste,P,CVD,Media,Medio,190,260,1.5,3.0,0.18,0.35,880,Inserto twin-edge para desbaste medio,
-Mitsubishi,Premium,CCMT 060204,C,80,Acabado,P,PVD,Baja,Alto,210,290,0.1,0.8,0.05,0.18,760,Inserto positivo de alta precisión para acabado,
-Mitsubishi,Premium,VNMG 160404,V,35,Acabado,P,PVD,Media,Alto,170,230,0.3,1.5,0.08,0.22,1050,Inserto para geometrías complejas con radios pequeños,
-Mitsubishi,Premium,VNMG 160408,V,35,Desbaste,P,CVD,Alta,Medio,160,220,1.5,3.5,0.12,0.30,1100,Inserto V para desbaste en perfiles complejos,
-Sumitomo,Premium,CNMG 120408,C,80,Desbaste,M,CVD,Alta,Medio,140,190,1.5,4.0,0.18,0.35,1020,Inserto CNMG para desbaste de inox con buena resistencia a entallamiento,
-Sumitomo,Premium,CCMT 060204,C,80,Acabado,M,PVD,Media,Alto,160,220,0.3,1.5,0.06,0.20,830,Inserto positivo para acabado en inox austenítico,
-Mitsubishi,Premium,VCMT 160404,V,35,Acabado,M,PVD,Media,Alto,130,190,0.3,1.5,0.08,0.22,1080,Inserto V para acabado en geometrías complejas de inox,
-Mitsubishi,Premium,CNMG 120404,C,80,Acabado,M,PVD,Baja,Medio,150,210,0.5,2.0,0.10,0.25,950,CNMG para semi-acabado en inox con buen control de viruta,
-Sumitomo,Premium,CCGT 060204,C,80,Acabado,N,Sin recubrimiento,Baja,Alto,350,600,0.1,1.0,0.05,0.25,820,Inserto pulido para acabado fino en aluminio,
-Sumitomo,Premium,CNMG 120404,C,80,Desbaste,N,Sin recubrimiento,Media,Medio,250,450,1.0,3.0,0.15,0.35,880,Inserto negativo para desbaste general en aluminio,
-Mitsubishi,Premium,VCGT 160404,V,35,Acabado,N,Sin recubrimiento,Media,Alto,400,650,0.2,1.5,0.06,0.20,1120,Inserto V pulido para perfiles complejos en aluminio,
-Mitsubishi,Premium,CCGT 09T304,C,80,Desbaste,N,Sin recubrimiento,Baja,Medio,300,550,0.5,2.0,0.10,0.30,900,Inserto positivo de bajo esfuerzo para desbaste ligero en aluminio,
-Mitsubishi,Premium,MGMN200,C,90,Tronzado,P,PVD,Media,Bajo,120,180,1.5,2.5,0.05,0.15,620,Inserto de tronzado 2mm para acero al carbono,
-Mitsubishi,Premium,MGMN300,C,90,Tronzado,P,PVD,Alta,Bajo,100,160,2.5,4.0,0.05,0.12,680,Inserto de tronzado ancho para acero,
-Sumitomo,Premium,GTN2,C,90,Tronzado,P,PVD,Media,Bajo,130,190,1.5,2.5,0.06,0.16,650,Inserto de tronzado estable para acero,
-Sumitomo,Premium,GTN3,C,90,Tronzado,P,PVD,Alta,Bajo,110,170,2.5,4.0,0.05,0.12,720,Inserto de tronzado profundo para acero,
-Mitsubishi,Premium,MGMN200,C,90,Tronzado,M,PVD,Media,Bajo,90,140,1.5,2.5,0.05,0.12,700,Inserto de tronzado para inox con menor Vc,
-Mitsubishi,Premium,MGMN300,C,90,Tronzado,M,PVD,Alta,Bajo,80,130,2.5,4.0,0.05,0.10,780,Inserto de tronzado ancho para inox,
-Sumitomo,Premium,GTN2,C,90,Tronzado,M,PVD,Media,Bajo,95,150,1.5,2.5,0.06,0.14,690,Inserto de tronzado para acero inoxidable,
-Mitsubishi,Premium,MGMN200,C,90,Tronzado,N,Sin recubrimiento,Media,Bajo,250,400,1.5,2.5,0.08,0.20,640,Inserto de tronzado para aluminio,
-Sumitomo,Premium,GTN2,C,90,Tronzado,N,Sin recubrimiento,Media,Bajo,300,500,1.5,2.5,0.10,0.25,680,Tronzado rápido en aluminio,
-Sumitomo,Premium,GTN3,C,90,Tronzado,N,Sin recubrimiento,Alta,Bajo,280,450,2.5,4.0,0.08,0.20,750,Tronzado profundo en aluminio,
+Sumitomo,Premium,CNMG 120408,C,80,Desbaste,P,CVD,Alta,Medio,180,250,2.0,5.0,0.20,0.40,950,Inserto negativo robusto para desbaste general en acero al carbono,10
+Sumitomo,Premium,CNMG 120404,C,80,Desbaste,P,CVD,Media,Medio,190,260,1.5,3.0,0.18,0.35,900,Inserto para desbaste medio con menor esfuerzo de corte,10
+Sumitomo,Premium,CCMT 060204,C,80,Acabado,P,PVD,Baja,Alto,200,280,0.1,1.0,0.05,0.20,780,Inserto positivo para acabado fino en acero,10
+Sumitomo,Premium,DNMG 150608,D,55,Desbaste,P,CVD,Alta,Bajo,170,230,2.5,5.0,0.22,0.45,980,Inserto para geometrías con mejor acceso que CNMG,10
+Sumitomo,Premium,DNMG 150404,D,55,Acabado,P,PVD,Media,Alto,190,260,0.5,2.0,0.10,0.25,900,Inserto D para acabado en zonas de acceso limitado,10
+Mitsubishi,Premium,CNMG 120408,C,80,Desbaste,P,CVD,Alta,Medio,180,250,2.0,5.0,0.20,0.40,930,Inserto MC para desbaste estable en acero,10
+Mitsubishi,Premium,CNMG 120404,C,80,Desbaste,P,CVD,Media,Medio,190,260,1.5,3.0,0.18,0.35,880,Inserto twin-edge para desbaste medio,10
+Mitsubishi,Premium,CCMT 060204,C,80,Acabado,P,PVD,Baja,Alto,210,290,0.1,0.8,0.05,0.18,760,Inserto positivo de alta precisión para acabado,10
+Mitsubishi,Premium,VNMG 160404,V,35,Acabado,P,PVD,Media,Alto,170,230,0.3,1.5,0.08,0.22,1050,Inserto para geometrías complejas con radios pequeños,10
+Mitsubishi,Premium,VNMG 160408,V,35,Desbaste,P,CVD,Alta,Medio,160,220,1.5,3.5,0.12,0.30,1100,Inserto V para desbaste en perfiles complejos,10
+Sumitomo,Premium,CNMG 120408,C,80,Desbaste,M,CVD,Alta,Medio,140,190,1.5,4.0,0.18,0.35,1020,Inserto CNMG para desbaste de inox con buena resistencia a entallamiento,10
+Sumitomo,Premium,CCMT 060204,C,80,Acabado,M,PVD,Media,Alto,160,220,0.3,1.5,0.06,0.20,830,Inserto positivo para acabado en inox austenítico,10
+Mitsubishi,Premium,VCMT 160404,V,35,Acabado,M,PVD,Media,Alto,130,190,0.3,1.5,0.08,0.22,1080,Inserto V para acabado en geometrías complejas de inox,10
+Mitsubishi,Premium,CNMG 120404,C,80,Acabado,M,PVD,Baja,Medio,150,210,0.5,2.0,0.10,0.25,950,CNMG para semi-acabado en inox con buen control de viruta,10
+Sumitomo,Premium,CCGT 060204,C,80,Acabado,N,Sin recubrimiento,Baja,Alto,350,600,0.1,1.0,0.05,0.25,820,Inserto pulido para acabado fino en aluminio,10
+Sumitomo,Premium,CNMG 120404,C,80,Desbaste,N,Sin recubrimiento,Media,Medio,250,450,1.0,3.0,0.15,0.35,880,Inserto negativo para desbaste general en aluminio,10
+Mitsubishi,Premium,VCGT 160404,V,35,Acabado,N,Sin recubrimiento,Media,Alto,400,650,0.2,1.5,0.06,0.20,1120,Inserto V pulido para perfiles complejos en aluminio,10
+Mitsubishi,Premium,CCGT 09T304,C,80,Desbaste,N,Sin recubrimiento,Baja,Medio,300,550,0.5,2.0,0.10,0.30,900,Inserto positivo de bajo esfuerzo para desbaste ligero en aluminio,10
+Mitsubishi,Premium,MGMN200,C,90,Tronzado,P,PVD,Media,Bajo,120,180,1.5,2.5,0.05,0.15,620,Inserto de tronzado 2mm para acero al carbono,10
+Mitsubishi,Premium,MGMN300,C,90,Tronzado,P,PVD,Alta,Bajo,100,160,2.5,4.0,0.05,0.12,680,Inserto de tronzado ancho para acero,10
+Sumitomo,Premium,GTN2,C,90,Tronzado,P,PVD,Media,Bajo,130,190,1.5,2.5,0.06,0.16,650,Inserto de tronzado estable para acero,10
+Sumitomo,Premium,GTN3,C,90,Tronzado,P,PVD,Alta,Bajo,110,170,2.5,4.0,0.05,0.12,720,Inserto de tronzado profundo para acero,10
+Mitsubishi,Premium,MGMN200,C,90,Tronzado,M,PVD,Media,Bajo,90,140,1.5,2.5,0.05,0.12,700,Inserto de tronzado para inox con menor Vc,10
+Mitsubishi,Premium,MGMN300,C,90,Tronzado,M,PVD,Alta,Bajo,80,130,2.5,4.0,0.05,0.10,780,Inserto de tronzado ancho para inox,10
+Sumitomo,Premium,GTN2,C,90,Tronzado,M,PVD,Media,Bajo,95,150,1.5,2.5,0.06,0.14,690,Inserto de tronzado para acero inoxidable,10
+Mitsubishi,Premium,MGMN200,C,90,Tronzado,N,Sin recubrimiento,Media,Bajo,250,400,1.5,2.5,0.08,0.20,640,Inserto de tronzado para aluminio,10
+Sumitomo,Premium,GTN2,C,90,Tronzado,N,Sin recubrimiento,Media,Bajo,300,500,1.5,2.5,0.10,0.25,680,Tronzado rápido en aluminio,10
+Sumitomo,Premium,GTN3,C,90,Tronzado,N,Sin recubrimiento,Alta,Bajo,280,450,2.5,4.0,0.08,0.20,750,Tronzado profundo en aluminio,10
 Mitsubishi,Premium,MGMN150,C,90,Ranurado,P,PVD,Baja,Medio,140,200,1.0,1.8,0.05,0.15,600,Inserto de ranurado fino para acero,10
 Mitsubishi,Premium,MGMN200,C,90,Ranurado,P,PVD,Media,Medio,130,190,1.5,2.5,0.06,0.16,650,Ranurado general en acero al carbono,12
 Sumitomo,Premium,GTN1,C,90,Ranurado,P,PVD,Baja,Alto,150,220,0.8,1.5,0.05,0.14,620,Ranurado de precisión en acero,10
